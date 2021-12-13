@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head th:replace="fragments :: head">
+</head>
+<body>
+<h3 th:unless="${employees}"></h3>
+<table th:if="${employees.size() > 0}" class="table table-hover">
+    <th>First Name</th>
+    <th>Second Name</th>
+    <th>Qualifications</th>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.firstName}"></td>
+        <td th:text="${employee.secondName}"></td>
+        <td>Click here for more</td>
+    </tr>
+</table>
+</body>
+<footer th:replace="fragments :: footer"></footer>
+</html>
