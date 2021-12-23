@@ -1,10 +1,7 @@
 package com.example.carservice.data.entity;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -23,5 +20,7 @@ public class Qualification extends BaseEntity {
     private String name;
 
     @ManyToMany(mappedBy = "qualifications")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Employee> qualifiedEmployees;
 }
