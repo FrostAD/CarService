@@ -58,6 +58,7 @@ public class EmployeeController {
     @GetMapping("/edit/{id}")
     public String showEmployeeEditForm(Model model,@PathVariable long id){
         UpdateEmployeeViewModel employee = modelMapper.map(employeeService.getEmployee(id),UpdateEmployeeViewModel.class);
+//        System.out.println(employee.getQualifications());
         model.addAttribute("employee",employee);
         model.addAttribute("qualificationsALL",qualificationService.getQualifications());
         return "/employees/edit-employee";
@@ -75,8 +76,4 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
         return "redirect:/employees/";
     }
-
-    //TODO make Qualification CRUD -> add list when creating employee(many to many)
-    //TODO entity -> repository -> service,serviceImpl -> controller -> dto -> view-model -> templates
-
 }
