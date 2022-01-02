@@ -24,7 +24,7 @@ public class Qualification extends BaseEntity {
     @ManyToMany(mappedBy = "qualifications")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Employee> qualifiedEmployees;
+    private Set<User> qualifiedEmployees;
 
     @ManyToMany(mappedBy = "serviceQualifications")
     @ToString.Exclude

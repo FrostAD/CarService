@@ -14,5 +14,6 @@ public class EmployeeViewModel {
     private long id;
     private String firstName;
     private String secondName;
+    private String username;
     private List<Qualification> qualifications;
 }

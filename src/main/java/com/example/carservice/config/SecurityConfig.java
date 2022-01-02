@@ -4,41 +4,40 @@ package com.example.carservice.config;
 
 import com.example.carservice.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userService);
+        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
 
-        return new BCryptPasswordEncoder();
+        return authProvider;
     }
 
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userService)
-                .passwordEncoder(passwordEncoder());
-    }
+    //TODO Make difference between role and authority (hasRoles/Authorities ...)
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/brands/").hasAnyAuthority("ADMIN", "EMPLOYEE")
-                .antMatchers("/employees/").hasAuthority("ADMIN")
+//                .antMatchers("/brands/").hasAnyAuthority("ADMIN", "EMPLOYEE")
+//                .antMatchers("/employees/").hasAuthority("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -53,14 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password(passwordEncoder().encode("user")).authorities("USER")
-                .and()
-                .withUser("admin").password(passwordEncoder().encode("user")).authorities("USER","ADMIN");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("user").password(passwordEncoder().encode("user")).authorities("EMPLOYEE")
+//                .and()
+//                .withUser("admin").password(passwordEncoder().encode("user")).authorities("EMPLOYEE","ADMIN");
+//    }
 
 
 

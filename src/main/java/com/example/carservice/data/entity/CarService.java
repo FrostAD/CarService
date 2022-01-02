@@ -39,4 +39,7 @@ public class CarService extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "brand_id")
     )
     private List<Brand> supportedBrands;
+
+    @OneToMany(mappedBy = "carService")
+    private List<User> serviceEmployees;
 }

@@ -6,7 +6,9 @@ import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,24 +17,38 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 public class User extends BaseEntity implements UserDetails {
+    @Column(nullable = false)
+    private String firstName;
+    @Column
+    private String lastName;
     @Column(nullable = false,unique = true)
     private String username;
     @Column(nullable = false)
     private String password;
     @Column
-    private boolean isAccountNonExpired;
+    private boolean isAccountNonExpired = true;
     @Column
-    private boolean isAccountNonLocked;
+    private boolean isAccountNonLocked = true;
     @Column
-    private boolean isCredentialsNonExpired;
+    private boolean isCredentialsNonExpired = true;
     @Column
-    private boolean isEnabled;
+    private boolean isEnabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> authorities;
+    private List<Role> authorities;
+    //Employee Qualifications
+    @ManyToMany
+    @JoinTable(
+            name = "employee_qualifications",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "qualification_id")
+    )
+    private List<Qualification> qualifications;
+    //Employee where works(Car Service)  maybe create Owner/Manager
+    @ManyToOne
+    @JoinColumn(name = "carservice_id")
+    private CarService carService;
+    //Customer vehicles
+    //Customer repairs
 
-//    public void grantAuthority(Role authority) {
-//        if ( authorities == null ) authorities = new HashSet<>();
-//        authorities.add(authority);
-//    }
 }

@@ -8,6 +8,8 @@ import com.example.carservice.web.view.model.brand.CreateBrandViewModel;
 import com.example.carservice.web.view.model.brand.UpdateBrandViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,6 +61,7 @@ public class BrandController {
         return "redirect:/brands/";
     }
     @GetMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteBrand(@PathVariable long id){
         brandService.deleteBrand(id);
         return "redirect:/brands/";
