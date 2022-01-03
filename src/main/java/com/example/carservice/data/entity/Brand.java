@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,5 +24,5 @@ public class Brand extends BaseEntity {
     @ManyToMany(mappedBy = "supportedBrands")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private List<CarService> servicesSupporting;
+    private Set<CarService> servicesSupporting = new HashSet<>();
 }

@@ -35,7 +35,7 @@ public class User extends BaseEntity implements UserDetails {
     private boolean isEnabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> authorities;
+    private Set<Role> authorities;
     //Employee Qualifications
     @ManyToMany
     @JoinTable(
@@ -49,6 +49,8 @@ public class User extends BaseEntity implements UserDetails {
     @JoinColumn(name = "carservice_id")
     private CarService carService;
     //Customer vehicles
+    @OneToMany(mappedBy = "owner",fetch = FetchType.EAGER)
+    private Set<Vehicle> myVehicles = new HashSet<>();
     //Customer repairs
 
 }

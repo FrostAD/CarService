@@ -30,7 +30,9 @@ public class CarService extends BaseEntity{
     )
     private List<Qualification> serviceQualifications;
 
-//    private List<Vehicle> vehiclesInRepair;
+//    private List<Vehicle> or List<Repair> vehiclesInRepair;
+//    @OneToMany(mappedBy = "carService")
+//    private List<Repair> vehiclesInRepair;
 
     @ManyToMany
     @JoinTable(
