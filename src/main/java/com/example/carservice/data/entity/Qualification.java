@@ -30,4 +30,7 @@ public class Qualification extends BaseEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private List<CarService> serviceQualifications;
+
+    @ManyToMany(mappedBy = "plannedFixes")
+    private Set<Repair> serviceRepairs;
 }

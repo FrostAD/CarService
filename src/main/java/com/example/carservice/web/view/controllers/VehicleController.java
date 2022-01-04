@@ -30,10 +30,9 @@ public class VehicleController {
     private final BrandService brandService;
     private final ModelMapper modelMapper;
 
-
-    //vehicles(customer)
     @GetMapping("/my")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public String getCustomerVehicles(Model model, Authentication authentication){
         User user = (User) authentication.getPrincipal();
         System.out.println(user.getMyVehicles());
@@ -43,6 +42,8 @@ public class VehicleController {
 
         return "/vehicles/my-vehicles";
     }
+
+    //vehicles(customer)
     @GetMapping("/create-vehicle")
     @PreAuthorize("isAuthenticated()")
     public String showVehicleCreateForm(Model model){

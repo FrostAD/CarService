@@ -26,4 +26,7 @@ public class Vehicle extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
+
+    //TODO ONE TO MANY Set<Repairs>
+
 }

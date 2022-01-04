@@ -3,6 +3,7 @@ package com.example.carservice.data.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "user")
 public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false)
@@ -35,6 +37,7 @@ public class User extends BaseEntity implements UserDetails {
     private boolean isEnabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @ToString.Exclude
     private Set<Role> authorities;
     //Employee Qualifications
     @ManyToMany
@@ -43,14 +46,19 @@ public class User extends BaseEntity implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "qualification_id")
     )
+    @ToString.Exclude
     private List<Qualification> qualifications;
     //Employee where works(Car Service)  maybe create Owner/Manager
     @ManyToOne
     @JoinColumn(name = "carservice_id")
+    @ToString.Exclude
     private CarService carService;
     //Customer vehicles
     @OneToMany(mappedBy = "owner",fetch = FetchType.EAGER)
+    @ToString.Exclude
     private Set<Vehicle> myVehicles = new HashSet<>();
     //Customer repairs
-
+    @OneToMany(mappedBy = "customer")
+    @ToString.Exclude
+    private Set<Repair> myRepairs = new HashSet<>();
 }
