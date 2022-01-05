@@ -1,5 +1,6 @@
 package com.example.carservice.services.implementations;
 
+import com.example.carservice.data.entity.Brand;
 import com.example.carservice.data.entity.CarService;
 import com.example.carservice.data.repository.CarServiceRepository;
 import com.example.carservice.dto.carService.CarServiceDTO;
@@ -30,6 +31,13 @@ public class CarServiceServiceImpl implements CarServiceService {
     @Override
     public List<CarServiceDTO> getCarServices() {
         return carServiceRepository.findAll().stream()
+                .map(cs -> modelMapper.map(cs,CarServiceDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CarServiceDTO> getCarServicesByBrand(Brand brand) {
+        return carServiceRepository.getCarServicesBySupportedBrandsContains(brand).stream()
                 .map(cs -> modelMapper.map(cs,CarServiceDTO.class))
                 .collect(Collectors.toList());
     }

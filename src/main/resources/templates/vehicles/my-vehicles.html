@@ -13,13 +13,16 @@
     <th>Year</th>
     <th>Edit</th>
     <th>Delete</th>
+    <th>Reserve</th>
     <th>Repairs</th>
     <tr th:each="vehicle : ${vehicles}">
-        <td th:text="${vehicle.brand}"></td>
+        <td th:text="${vehicle.brand.name}"></td>
         <td th:text="${vehicle.model}"></td>
         <td th:text="${vehicle.productionYear}"></td>
         <td><a class="btn btn-info" th:href="@{'/brands/edit/'+${vehicle.id}}">Edit</a></td>
         <td><a class="btn btn-danger" th:href="@{'/brands/delete/'+${vehicle.id}}">Delete</a></td>
+        <td><a class="btn btn-info" th:href="@{'/carservices/reserve/'+${vehicle.id}}">Search</a></td>
+
     </tr>
 </table>
 </body>

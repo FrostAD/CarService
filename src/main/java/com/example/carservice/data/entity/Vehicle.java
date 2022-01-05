@@ -5,10 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,6 +25,10 @@ public class Vehicle extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User owner;
+
+    //TODO idk
+//    @OneToMany(mappedBy = "vehicle")
+//    private Set<Reservation> reservations = new HashSet<>();
 
     //TODO ONE TO MANY Set<Repairs>
 

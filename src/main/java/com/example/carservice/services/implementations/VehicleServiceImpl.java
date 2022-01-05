@@ -24,9 +24,30 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<VehicleDto> getCustomerVehicles(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return vehicleRepository.getVehiclesByOwnerEquals(user.getId()).stream()
+        return vehicleRepository.getVehiclesByOwnerIdEquals(user.getId()).stream()
                 .map(v -> modelMapper.map(v,VehicleDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public VehicleDto getCustomerVehicle(Authentication authentication, long id) {
+        User user = (User) authentication.getPrincipal();
+        System.out.println("Service USER");
+        System.out.println(user);
+        List<Vehicle> vehicles = vehicleRepository.getVehiclesByOwnerIdEquals(user.getId()).stream().toList();
+        Vehicle vehicle = (Vehicle) vehicleRepository.getVehiclesByOwnerIdEquals(user.getId()).stream()
+                .filter(v -> v.getId() == id)
+                .reduce((a, b) -> {
+                    throw new IllegalStateException("Multiple elements: " + a + ", " + b);
+                })
+                .get();
+
+//        Vehicle vehicle = vehicles.get(0);
+        if(vehicle != null)
+            return modelMapper.map(vehicle,VehicleDto.class);
+
+        //TODO throw error or no access
+        return null;
     }
 
     @Override

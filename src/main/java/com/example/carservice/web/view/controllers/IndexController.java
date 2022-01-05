@@ -22,6 +22,8 @@ public class IndexController {
         return "login";
     }
 
+
+
     @GetMapping("unauthorized")
     public String unauthorized(Model model) {
         final String welcomeMessage = "Welcome to the School Management System!";

@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface VehicleService {
     List<VehicleDto> getCustomerVehicles(Authentication authentication);
-
+    VehicleDto getCustomerVehicle(Authentication authentication, long id);
     void createVehicle(@Valid CreateVehicleDTO map);
 }

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
-    List<Vehicle> getVehiclesByOwnerEquals(long id);
+    List<Vehicle> getVehiclesByOwnerIdEquals(long id);
 }

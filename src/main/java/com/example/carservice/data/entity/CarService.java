@@ -49,4 +49,8 @@ public class CarService extends BaseEntity{
 
     @OneToMany(mappedBy = "carService")
     private List<User> serviceEmployees;
+
+    //TODO other thing connected with reservation
+    @OneToMany(mappedBy = "carService")
+    private Set<Reservation> reservations = new HashSet<>();
 }

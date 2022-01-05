@@ -47,7 +47,7 @@ public class EmployeeController {
     public String showEmployeeCreateForm(Model model) {
         model.addAttribute("employee", new CreateEmployeeViewModel());
         model.addAttribute("qualificationss", qualificationService.getQualifications());
-        model.addAttribute("roless",roleService.getRoles());
+//        model.addAttribute("roless",roleService.getRoles());
         //TODO car services select single (or get it from the admin)
 
         return "/employees/create-employee";
@@ -61,6 +61,7 @@ public class EmployeeController {
         }
 //        System.out.println("pass(in controller)");
         userService.createEmployee(modelMapper.map(employee, CreateEmployeeDTO.class));
+        //TODO create successfully but crash after that size()
         return "/employees/employees";
     }
 

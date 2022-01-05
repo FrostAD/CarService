@@ -1,4 +1,4 @@
-package com.example.carservice.dto.customer;
+package com.example.carservice.web.view.model.customer;
 
 import com.example.carservice.data.entity.Repair;
 import com.example.carservice.data.entity.Role;
@@ -17,13 +17,13 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UpdateCustomerDTO {
+@ToString
+public class CreateCustomerViewModel {
     @NotNull
     private String firstName;
     @NotNull
     private String lastName;
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String username;
     @NotBlank
     private String password;

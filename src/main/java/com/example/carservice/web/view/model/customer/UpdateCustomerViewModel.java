@@ -1,11 +1,8 @@
-package com.example.carservice.dto.customer;
+package com.example.carservice.web.view.model.customer;
 
 import com.example.carservice.data.entity.Repair;
 import com.example.carservice.data.entity.Role;
 import com.example.carservice.data.entity.Vehicle;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -14,16 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class UpdateCustomerDTO {
+public class UpdateCustomerViewModel {
     @NotNull
     private String firstName;
     @NotNull
     private String lastName;
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String username;
     @NotBlank
     private String password;
