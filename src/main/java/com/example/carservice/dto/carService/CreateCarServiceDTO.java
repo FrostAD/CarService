@@ -25,4 +25,5 @@ public class CreateCarServiceDTO {
     private int maxRepairingCars;
 
     private List<Brand> supportedBrands;
+
 }

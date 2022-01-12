@@ -18,23 +18,60 @@ public class DbInit implements
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        if(!roleRepository.getById((long)1).getAuthority().equals("ADMIN")) {
-            Role admin = new Role();
-            admin.setId(1);
-            admin.setAuthority("ADMIN");
-            roleRepository.save(admin);
-        }
-        if(!roleRepository.getById((long)1).getAuthority().equals("EMPLOYEE")) {
-            Role employee = new Role();
-            employee.setId(2);
-            employee.setAuthority("EMPLOYEE");
-            roleRepository.save(employee);
-        }
-        if(!roleRepository.getById((long)1).getAuthority().equals("EMPLOYEE")) {
-            Role customer = new Role();
-            customer.setId(3);
-            customer.setAuthority("CUSTOMER");
-            roleRepository.save(customer);
-        }
+//        try {
+//            //TODO make better checks (getbyid.orelse ...)
+////            if(!roleRepository.getById((long)1).getAuthority().equals("ADMIN")) {
+////                Role admin = new Role();
+////                admin.setId(1);
+////                admin.setAuthority("ADMIN");
+////                roleRepository.save(admin);
+////            }
+////            if(!roleRepository.getById((long)2).getAuthority().equals("EMPLOYEE")) {
+////                Role employee = new Role();
+////                employee.setId(2);
+////                employee.setAuthority("EMPLOYEE");
+////                roleRepository.save(employee);
+////            }
+////            if(!roleRepository.getById((long)3).getAuthority().equals("EMPLOYEE")) {
+////                Role customer = new Role();
+////                customer.setId(3);
+////                customer.setAuthority("CUSTOMER");
+////                roleRepository.save(customer);
+////            }
+//            roleRepository.getById((long)1);
+//            roleRepository.getById((long)2);
+//            roleRepository.getById((long)3);
+//        }catch (Exception e){
+//
+//        }finally {
+//            Role admin = new Role();
+//            admin.setId(1);
+//            admin.setAuthority("ADMIN");
+//            roleRepository.save(admin);
+//
+//            Role employee = new Role();
+//            employee.setId(2);
+//            employee.setAuthority("EMPLOYEE");
+//            roleRepository.save(employee);
+//
+//            Role customer = new Role();
+//            customer.setId(3);
+//            customer.setAuthority("CUSTOMER");
+//            roleRepository.save(customer);
+//        }
+        Role admin = new Role();
+        admin.setId(1);
+        admin.setAuthority("ADMIN");
+        roleRepository.save(admin);
+
+        Role employee = new Role();
+        employee.setId(2);
+        employee.setAuthority("EMPLOYEE");
+        roleRepository.save(employee);
+
+        Role customer = new Role();
+        customer.setId(3);
+        customer.setAuthority("CUSTOMER");
+        roleRepository.save(customer);
     }
 }

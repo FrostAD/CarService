@@ -4,6 +4,7 @@ import com.example.carservice.data.entity.Brand;
 import com.example.carservice.dto.carService.CarServiceDTO;
 import com.example.carservice.dto.carService.CreateCarServiceDTO;
 import com.example.carservice.dto.carService.UpdateCarServiceDTO;
+import com.example.carservice.dto.carServicePricelist.CreateCarServicePricelistDTO;
 
 import javax.validation.constraints.Min;
 import java.util.List;

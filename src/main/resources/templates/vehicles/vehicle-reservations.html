@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head">
+</head>
+<body class="container w-75 mx-auto pb-5">
+<header th:replace="fragments :: header"></header>
+<h1>Vehicle reservations</h1>
+<h3 th:unless="${reservations} and ${reservations.size()}">No reservations!</h3>
+<!--<a href="create-vehicle" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Add</a>-->
+<table th:if="${reservations.size() > 0}" class="table table-hover">
+    <th>CarService</th>
+    <th>Date</th>
+    <th>Cancel</th>
+    <tr th:each="reservation : ${reservations}">
+        <td th:text="${reservation.carServiceName}"><a class="btn btn-info" th:href="@{'/carservices/'+${reservation.carServiceId}}">Cancel</a></td>
+        <td th:text="${reservation.date}"></td>
+        <td><a class="btn btn-info" th:href="@{'/reservations/cancel/'+${reservation.id}}">Cancel</a></td>
+    </tr>
+</table>
+</body>
+<footer th:replace="fragments :: footer"></footer>
+</html>

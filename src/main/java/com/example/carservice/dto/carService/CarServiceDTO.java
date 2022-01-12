@@ -1,9 +1,6 @@
 package com.example.carservice.dto.carService;
 
-import com.example.carservice.data.entity.Brand;
-import com.example.carservice.data.entity.Qualification;
-import com.example.carservice.data.entity.Repair;
-import com.example.carservice.data.entity.User;
+import com.example.carservice.data.entity.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,4 +31,6 @@ public class CarServiceDTO {
     private List<Brand> supportedBrands;
 
     private List<User> serviceEmployees;
+
+    private Set<CarServicePricelist> pricelist;
 }

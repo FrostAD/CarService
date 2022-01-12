@@ -17,6 +17,7 @@ import java.util.Set;
 @ToString
 @Table(name = "repair")
 public class Repair extends BaseEntity{
+    //TODO maybe add date
 
     @ManyToOne
     @ToString.Exclude

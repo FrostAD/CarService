@@ -2,6 +2,7 @@ package com.example.carservice.web.view.controllers;
 
 import com.example.carservice.data.entity.Vehicle;
 import com.example.carservice.dto.carService.CarServiceDTO;
+import com.example.carservice.dto.reservation.CreateReservationDTO;
 import com.example.carservice.dto.vehicle.VehicleDto;
 import com.example.carservice.services.CarServiceService;
 import com.example.carservice.services.ReservationService;
@@ -61,9 +62,22 @@ public class ReservationController {
     @PostMapping("/carservices/reserve")
     public String createReservation(@Valid @ModelAttribute("reservation")CreateReservationViewModel createReservationViewModel, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
+            System.out.println(createReservationViewModel.getDate());
+            System.out.println(bindingResult.getAllErrors());
             return "/customers/create-reservation";
         }
-        System.out.println(createReservationViewModel);
-        return "/vehicles/my";
+//        System.out.println(createReservationViewModel);
+        reservationService.createReservation(modelMapper.map(createReservationViewModel, CreateReservationDTO.class));
+        return "redirect:/vehicles/my";
+    }
+
+    @GetMapping("/reservations/{id}")
+    public String viewVehicleReservations(@PathVariable("id") long vehicleId,Authentication authentication,Model model){
+        VehicleDto vehicleDto = vehicleService.getCustomerVehicle(authentication,vehicleId);
+        VehicleViewModel vehicleViewModel = modelMapper.map(vehicleDto,VehicleViewModel.class);
+        System.out.println(vehicleViewModel.getReservations());
+        model.addAttribute("reservations",modelMapper.map(vehicleDto,VehicleViewModel.class).getReservations());
+
+        return "/vehicles/vehicle-reservations";
     }
 }

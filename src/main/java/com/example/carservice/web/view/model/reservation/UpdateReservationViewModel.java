@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class UpdateReservationViewModel {
     private Vehicle vehicle;
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past(message="The date has to be in the past!")
+    @Future(message="The date has to be in the future!")
     private LocalDate date;
     private boolean isComplete;
 }

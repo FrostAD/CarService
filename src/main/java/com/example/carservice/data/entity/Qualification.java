@@ -4,10 +4,9 @@ package com.example.carservice.data.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,4 +32,7 @@ public class Qualification extends BaseEntity {
 
     @ManyToMany(mappedBy = "plannedFixes")
     private Set<Repair> serviceRepairs;
+
+    @OneToMany(mappedBy = "qualification")
+    private Set<CarServicePricelist> pricelists = new HashSet<>();
 }

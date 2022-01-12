@@ -21,8 +21,9 @@
         <td th:text="${vehicle.productionYear}"></td>
         <td><a class="btn btn-info" th:href="@{'/brands/edit/'+${vehicle.id}}">Edit</a></td>
         <td><a class="btn btn-danger" th:href="@{'/brands/delete/'+${vehicle.id}}">Delete</a></td>
-        <td><a class="btn btn-info" th:href="@{'/carservices/reserve/'+${vehicle.id}}">Search</a></td>
-
+<!--        <td><a class="btn btn-info" th:href="@{'/carservices/reserve/'+${vehicle.id}}">Search</a></td>-->
+        <td th:if="${vehicle.getReservations().size() < 1}"><a class="btn btn-info" th:href="@{'/carservices/reserve/'+${vehicle.id}}">Search</a></td>
+        <td th:unless="${vehicle.getReservations().size() < 1}"><a class="btn btn-info" th:href="@{'/reservations/'+${vehicle.id}}">View reservation</a></td>
     </tr>
 </table>
 </body>

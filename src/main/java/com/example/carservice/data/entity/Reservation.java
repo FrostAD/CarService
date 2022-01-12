@@ -6,9 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
@@ -19,16 +17,25 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 @Table(name = "reservation")
-public class Reservation extends BaseEntity{
+public class Reservation{
+    @EmbeddedId
+    private ReservationKey id;
+
     @NotNull
     @ManyToOne
+    @MapsId("carServiceId")
+    @JoinColumn(name = "car_service_id")
     private CarService carService;
     @NotNull
     @ManyToOne
+    @MapsId("vehicleId")
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past(message="The date has to be in the past!")
-    private LocalDate date;
+
+//    @NotNull
+//    @MapsId("date")
+//    @JoinColumn(name = "date")
+//    private LocalDate date;
+
     private boolean isComplete = false;
 }

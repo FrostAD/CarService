@@ -52,5 +52,10 @@ public class CarService extends BaseEntity{
 
     //TODO other thing connected with reservation
     @OneToMany(mappedBy = "carService")
+    @ToString.Exclude
     private Set<Reservation> reservations = new HashSet<>();
+
+    //PRICELIST
+    @OneToMany(mappedBy = "carService")
+    private Set<CarServicePricelist> pricelist = new HashSet<>();
 }

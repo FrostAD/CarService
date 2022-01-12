@@ -28,10 +28,10 @@
                 <input type="hidden" th:value="${carService.id}" th:attr="name='carService'"/>
                 <input type="hidden" th:value="${vehicle.id}" th:attr="name='vehicle'"/>
                 <div class="form-group">
-                    <label for="foundationDate">Date</label>
+                    <label for="date">Date</label>
                     <input class="form-control" type="date" th:field="*{date}">
                     <span class="text-danger" th:if="${#fields.hasErrors('date')}"
-                          th:errors="*{date}">Foundation Date Error</span>
+                          th:errors="*{date}">Reservation Date Error</span>
                 </div>
                 <button type="submit">Save</button>
             </form>

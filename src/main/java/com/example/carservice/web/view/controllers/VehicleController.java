@@ -35,7 +35,6 @@ public class VehicleController {
 //    @PreAuthorize("hasAuthority('ADMIN')")
     public String getCustomerVehicles(Model model, Authentication authentication){
         User user = (User) authentication.getPrincipal();
-        System.out.println(user.getMyVehicles());
         model.addAttribute("vehicles",user.getMyVehicles().stream()
                 .map(v -> modelMapper.map(v, VehicleViewModel.class))
                 .collect(Collectors.toList()));

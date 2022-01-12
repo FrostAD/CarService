@@ -4,7 +4,12 @@
 </head>
 <body class="container w-75 mx-auto pb-5">
 <header th:replace="fragments :: header"></header>
-<!--<a href=create-repair" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">New repair</a>-->
+<!--<a href=create-repair" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">New repair</a>-->.
+<h3>Pricelist</h3>
+<h4 th:each="pricelist : ${carService.getPricelist()}">
+    <h4 th:text="${pricelist.getQualification().name}+' = '+${pricelist.getPrice()}"></h4>
+</h4>
+<a class="btn btn-info" th:href="@{'/carservices/'+${carService.id}+'/prices/create-pricelist'}">Add new service</a>
 <table  class="table table-hover">
     <th>Vehicle</th>
     <th>Customer</th>

@@ -18,6 +18,12 @@
                th:text="${error}">Validation error</p>
         </div>
         <div>
+            <label for="username">Username</label>
+            <input th:field="*{username}"/>
+            <p th:each="error : ${#fields.errors('username')}"
+               th:text="${error}">Validation error</p>
+        </div>
+        <div>
             <label for="password">Password</label>
             <input type="password" th:field="*{password}" id="password"/>
             <p th:each="error : ${#fields.errors('password')}"

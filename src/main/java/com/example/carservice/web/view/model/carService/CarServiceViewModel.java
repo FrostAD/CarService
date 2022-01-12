@@ -1,9 +1,6 @@
 package com.example.carservice.web.view.model.carService;
 
-import com.example.carservice.data.entity.Brand;
-import com.example.carservice.data.entity.Qualification;
-import com.example.carservice.data.entity.Repair;
-import com.example.carservice.data.entity.User;
+import com.example.carservice.data.entity.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,4 +25,6 @@ public class CarServiceViewModel {
     private List<Brand> supportedBrands;
 
     private List<User> serviceEmployees;
+    private Set<CarServicePricelist> pricelist;
+
 }

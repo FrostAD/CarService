@@ -1,5 +1,6 @@
 package com.example.carservice.data.entity;
 
+import com.example.carservice.dto.reservation.ReservationDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,13 +23,13 @@ public class Vehicle extends BaseEntity {
     private Brand brand;
     private String model;
     private int productionYear;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User owner;
 
     //TODO idk
-//    @OneToMany(mappedBy = "vehicle")
-//    private Set<Reservation> reservations = new HashSet<>();
+    @OneToMany(mappedBy = "vehicle",fetch = FetchType.EAGER)
+    private Set<Reservation> reservations = new HashSet<>();
 
     //TODO ONE TO MANY Set<Repairs>
 
