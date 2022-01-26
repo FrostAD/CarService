@@ -31,8 +31,12 @@ public class Qualification extends BaseEntity {
     private List<CarService> serviceQualifications;
 
     @ManyToMany(mappedBy = "plannedFixes")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Repair> serviceRepairs;
 
     @OneToMany(mappedBy = "qualification")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<CarServicePricelist> pricelists = new HashSet<>();
 }

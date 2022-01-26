@@ -1,6 +1,7 @@
 package com.example.carservice.web.view.model.carService;
 
 import com.example.carservice.data.entity.*;
+import com.example.carservice.web.view.model.qualification.QualificationViewModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,13 +19,15 @@ public class CarServiceViewModel {
     private String name;
     private int maxRepairingCars;
 
-    private List<Qualification> serviceQualifications;
-
+    @ToString.Exclude
+    private List<QualificationViewModel> serviceQualifications;
+    @ToString.Exclude
     private Set<Repair> vehiclesInRepair;
-
+    @ToString.Exclude
     private List<Brand> supportedBrands;
-
+    @ToString.Exclude
     private List<User> serviceEmployees;
+    @ToString.Exclude
     private Set<CarServicePricelist> pricelist;
 
 }

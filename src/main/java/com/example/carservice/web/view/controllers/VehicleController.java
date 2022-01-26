@@ -1,7 +1,9 @@
 package com.example.carservice.web.view.controllers;
 
+import com.example.carservice.data.entity.Reservation;
 import com.example.carservice.data.entity.User;
 import com.example.carservice.dto.vehicle.CreateVehicleDTO;
+import com.example.carservice.dto.vehicle.VehicleDto;
 import com.example.carservice.services.BrandService;
 import com.example.carservice.services.VehicleService;
 import com.example.carservice.web.view.model.brand.BrandViewModel;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/vehicles")
 public class VehicleController {
     private final VehicleService vehicleService;
@@ -31,20 +35,23 @@ public class VehicleController {
     private final ModelMapper modelMapper;
 
     @GetMapping("/my")
-    @PreAuthorize("isAuthenticated()")
-//    @PreAuthorize("hasAuthority('ADMIN')")
     public String getCustomerVehicles(Model model, Authentication authentication){
         User user = (User) authentication.getPrincipal();
         model.addAttribute("vehicles",user.getMyVehicles().stream()
                 .map(v -> modelMapper.map(v, VehicleViewModel.class))
-                .collect(Collectors.toList()));
+                        .map(vehicleViewModel -> {
+                            Set<Reservation> active = vehicleViewModel.getReservations().stream().filter(r -> r.isComplete() == false).collect(Collectors.toSet());
+                            vehicleViewModel.setReservations(active);
+                                    return vehicleViewModel;
+                                }
+                        )
+                .collect(Collectors.toSet()));
 
         return "/vehicles/my-vehicles";
     }
 
     //vehicles(customer)
     @GetMapping("/create-vehicle")
-    @PreAuthorize("isAuthenticated()")
     public String showVehicleCreateForm(Model model){
         model.addAttribute("vehicle",new CreateVehicleViewModel());
         model.addAttribute("brands",brandService.getBrands().stream()
@@ -54,7 +61,6 @@ public class VehicleController {
         return "/vehicles/create-vehicle";
     }
     @PostMapping("/create")
-    @PreAuthorize("isAuthenticated()")
     public String createVehicle(@Valid @ModelAttribute("vehicle") CreateVehicleViewModel vehicle, BindingResult bindingResult,Authentication authentication){
         System.out.println(bindingResult.getAllErrors());
         if(bindingResult.hasErrors()){

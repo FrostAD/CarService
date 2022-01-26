@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/brands")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class BrandController {
     private final BrandService brandService;
     private final ModelMapper mapper;

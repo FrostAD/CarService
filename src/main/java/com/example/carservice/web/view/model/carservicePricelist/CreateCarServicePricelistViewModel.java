@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Getter
 @Setter
@@ -18,5 +20,6 @@ public class CreateCarServicePricelistViewModel {
     private Qualification qualification;
     @NotNull
     //TODO make zero unacceptable
+    @PositiveOrZero
     private double price;
 }

@@ -7,6 +7,7 @@ import com.example.carservice.web.view.model.role.RoleViewModel;
 import com.example.carservice.web.view.model.role.UpdateRoleViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/roles")
 @AllArgsConstructor
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class RoleController {
     private final RoleService roleService;
     private final ModelMapper modelMapper;

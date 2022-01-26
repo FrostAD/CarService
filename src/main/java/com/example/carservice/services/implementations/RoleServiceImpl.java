@@ -24,7 +24,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public RoleDTO getRole(@Min(1) long id) {
         return modelMapper.map(roleRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("Brand id invalid")),RoleDTO.class);
+                () -> new NullPointerException("Role id is invalid!")),RoleDTO.class);
     }
 
     @Override

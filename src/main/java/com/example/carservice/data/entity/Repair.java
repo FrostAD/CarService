@@ -6,8 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -17,11 +20,9 @@ import java.util.Set;
 @ToString
 @Table(name = "repair")
 public class Repair extends BaseEntity{
-    //TODO maybe add date
 
     @ManyToOne
     @ToString.Exclude
-//    @JsonBackReference
     private CarService carService;
     //vehicle's id
     @ManyToOne
@@ -39,7 +40,13 @@ public class Repair extends BaseEntity{
     @ManyToOne
     private User customer;
     //sum
-    private double sum;
+    private double sum = 0.0;
     //isComplete
     private boolean isComplete = false;
+    //date - will be set when isComplete is TRUE
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate = LocalDate.now();
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate finishDate;
+
 }

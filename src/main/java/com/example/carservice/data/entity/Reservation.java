@@ -38,4 +38,14 @@ public class Reservation{
 //    private LocalDate date;
 
     private boolean isComplete = false;
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", carService=" + carService.getId() +
+                ", vehicle=" + vehicle.getId() +
+                ", isComplete=" + isComplete +
+                '}';
+    }
 }

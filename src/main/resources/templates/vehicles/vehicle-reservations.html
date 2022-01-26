@@ -12,9 +12,21 @@
     <th>Date</th>
     <th>Cancel</th>
     <tr th:each="reservation : ${reservations}">
-        <td th:text="${reservation.carServiceName}"><a class="btn btn-info" th:href="@{'/carservices/'+${reservation.carServiceId}}">Cancel</a></td>
-        <td th:text="${reservation.date}"></td>
-        <td><a class="btn btn-info" th:href="@{'/reservations/cancel/'+${reservation.id}}">Cancel</a></td>
+        <form th:action="@{/reservations/cancel}" method="POST" enctype="utf8">
+<!--            <td><input type="text" th:value="${addr.name}" th:field="*{addressList[__${addrStat.index}__].name}"></td>-->
+            <input type="hidden" th:value="${reservation.getId().carServiceId}" th:name="carServiceId">
+            <input type="hidden" th:value="${reservation.getId().vehicleId}" th:name="vehicleId">
+            <input type="hidden" th:value="${reservation.getId().date}" th:name="date">
+
+            <td th:text="${reservation.getCarService().name}"></td>
+            <td th:text="${reservation.getId().date}"></td>
+            <td>
+                <button type="submit" class="btn btn-secondary btn-lg active">Cancel</button>
+            </td>
+        </form>
+        <!--        <td th:text="${reservation.getCarService().name}"><a class="btn btn-info" th:href="@{'/carservices/'+${reservation.getCarService().id}}">Cancel</a></td>-->
+        <!--        <td th:text="${reservation.getId().date}"></td>-->
+        <!--        <td><a class="btn btn-info" th:href="@{'/reservations/cancel/'+${reservation.id}}">Cancel</a></td>-->
     </tr>
 </table>
 </body>

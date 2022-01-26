@@ -1,8 +1,12 @@
 package com.example.carservice.config;
 
 import com.example.carservice.data.entity.Reservation;
+import com.example.carservice.dto.reservation.CreateReservationDTO;
 import com.example.carservice.dto.reservation.ReservationDTO;
+import com.example.carservice.dto.reservation.UpdateReservationDTO;
+import com.example.carservice.web.view.model.reservation.ReservationViewModel;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.datetime.DateFormatter;
@@ -20,6 +24,33 @@ public class Config {
         modelMapper.typeMap(Reservation.class, ReservationDTO.class).addMappings(mapper -> {
             mapper.map(src -> src.getId().getDate(),
                     ReservationDTO::setDate);
+        });
+//        modelMapper.typeMap(ReservationDTO.class, ReservationViewModel.class).addMappings(mapper -> {
+//            mapper.map(src -> src.getId(),
+//                    ReservationDTO::setDate);
+//        });
+//        modelMapper.typeMap(ReservationDTO.class, Reservation.class).addMappings(mapper -> {
+//            mapper.map(src -> src.getDate(),
+//                    Reservation::getId()::setDate);
+//        });
+
+        modelMapper.addMappings(new PropertyMap<ReservationDTO, Reservation>() {
+            @Override
+            protected void configure() {
+                map().getId().setDate(source.getDate());
+            }
+        });
+        modelMapper.addMappings(new PropertyMap<UpdateReservationDTO, Reservation>() {
+            @Override
+            protected void configure() {
+                map().getId().setDate(source.getDate());
+            }
+        });
+        modelMapper.addMappings(new PropertyMap<CreateReservationDTO, Reservation>() {
+            @Override
+            protected void configure() {
+                map().getId().setDate(source.getDate());
+            }
         });
         return modelMapper;
     }

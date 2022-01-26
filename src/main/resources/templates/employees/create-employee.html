@@ -35,10 +35,22 @@
             <p th:each="error : ${#fields.errors('matchingPassword')}"
                th:text="${error}">Validation error</p>
         </div>
+        <label for="carService">
+            Select car service
+            <select class="form-control basic-single" th:field="*{carService}">
+                <option th:each="cs : ${carServices}"
+                        th:value="${cs.id}"
+                        th:text="${cs.name}">
+
+                </option>
+            </select>
+            <p th:each="error : ${#fields.errors('carService')}"
+               th:text="${error}">Car service error</p>
+        </label>
         <label for="qualifications">
             Select qualifications
             <select class="form-control basic-multiple" th:field="*{qualifications}" multiple="multiple">
-                <option th:each="qualification : ${qualificationss}"
+                <option th:each="qualification : ${qualificationsALL}"
                         th:value="${qualification.id}"
                         th:text="${qualification.name}">
 
@@ -47,17 +59,6 @@
             <p th:each="error : ${#fields.errors('qualifications')}"
                th:text="${error}">Qualifications error</p>
         </label>
-<!--        <label for="authorities">-->
-<!--            Select roles-->
-<!--            <select class="form-control basic-multiple" th:field="*{authorities}" multiple="multiple">-->
-<!--                <option th:each="role : ${roless}"-->
-<!--                        th:value="${role.id}"-->
-<!--                        th:text="${role.authority}">-->
-<!--                </option>-->
-<!--            </select>-->
-<!--            <p th:each="error : ${#fields.errors('authorities')}"-->
-<!--               th:text="${error}">Authorities error</p>-->
-<!--        </label>-->
         <button type="submit">Save</button>
     </form>
 </div>
@@ -72,8 +73,8 @@
         });
     });
     $(document).ready(function () {
-        $('#authorities').select2({
-            placeholder: 'Select role'
+        $('#carService').select2({
+            placeholder: 'Select car service'
         });
     });
 </script>

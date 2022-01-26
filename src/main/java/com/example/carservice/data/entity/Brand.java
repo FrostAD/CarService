@@ -15,6 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "brand")
 public class Brand extends BaseEntity {

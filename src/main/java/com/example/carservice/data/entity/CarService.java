@@ -24,6 +24,7 @@ public class CarService extends BaseEntity{
     private String name;
     @NotNull
     private int maxRepairingCars;
+    //TODO add current int, otherwise I need to fetch all repairs and then filter them every time
 
     @ManyToMany
     @JoinTable(
@@ -31,12 +32,11 @@ public class CarService extends BaseEntity{
             joinColumns = @JoinColumn(name = "service_id"),
             inverseJoinColumns = @JoinColumn(name = "qualification_id")
     )
-    private List<Qualification> serviceQualifications;
+    private Set<Qualification> serviceQualifications = new HashSet<>();
 
 //    private List<Vehicle> or List<Repair> vehiclesInRepair;
     @OneToMany(mappedBy = "carService",fetch = FetchType.EAGER)
     @ToString.Exclude
-//    @JsonManagedReference
     private Set<Repair> vehiclesInRepair = new HashSet<>();
 
     @ManyToMany
@@ -45,10 +45,10 @@ public class CarService extends BaseEntity{
             joinColumns = @JoinColumn(name = "service_id"),
             inverseJoinColumns = @JoinColumn(name = "brand_id")
     )
-    private List<Brand> supportedBrands;
+    private Set<Brand> supportedBrands = new HashSet<>();
 
     @OneToMany(mappedBy = "carService")
-    private List<User> serviceEmployees;
+    private Set<User> serviceEmployees = new HashSet<>();
 
     //TODO other thing connected with reservation
     @OneToMany(mappedBy = "carService")

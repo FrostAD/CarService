@@ -17,7 +17,7 @@ public class IndexController {
 
     @GetMapping("login")
     public String login(Model model) {
-        final String welcomeMessage = "Welcome to the School Management System!";
+        final String welcomeMessage = "Login Form";
         model.addAttribute("welcome", welcomeMessage);
         return "login";
     }
@@ -26,8 +26,8 @@ public class IndexController {
 
     @GetMapping("unauthorized")
     public String unauthorized(Model model) {
-        final String welcomeMessage = "Welcome to the School Management System!";
-        model.addAttribute("welcome", welcomeMessage);
+//        final String welcomeMessage = "Welcome to the School Management System!";
+//        model.addAttribute("welcome", welcomeMessage);
         return "unauthorized";
     }
 }

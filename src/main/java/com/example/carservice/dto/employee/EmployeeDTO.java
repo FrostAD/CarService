@@ -1,5 +1,6 @@
 package com.example.carservice.dto.employee;
 
+import com.example.carservice.data.entity.CarService;
 import com.example.carservice.data.entity.Qualification;
 import com.example.carservice.data.entity.Role;
 import com.example.carservice.dto.qualification.QualificationDTO;
@@ -10,6 +11,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +34,7 @@ public class EmployeeDTO {
     @Column
     private boolean isEnabled;
 
-    private List<Role> authorities;
-    private List<Qualification> qualifications;
+    private CarService carService;
+    private Set<Role> authorities;
+    private Set<Qualification> qualifications;
 }

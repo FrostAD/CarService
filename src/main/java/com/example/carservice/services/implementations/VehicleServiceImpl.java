@@ -33,13 +33,13 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public VehicleDto getCustomerVehicle(Authentication authentication, long id) {
+    public VehicleDto getCustomerVehicle(Authentication authentication, long vehicleId) {
         User user = (User) authentication.getPrincipal();
         System.out.println("Service USER");
         System.out.println(user);
         List<Vehicle> vehicles = vehicleRepository.getVehiclesByOwnerIdEquals(user.getId()).stream().toList();
         VehicleDto vehicle = (VehicleDto) vehicleRepository.getVehiclesByOwnerIdEquals(user.getId()).stream()
-                .filter(v -> v.getId() == id)
+                .filter(v -> v.getId() == vehicleId)
                 .reduce((a, b) -> {
                     throw new IllegalStateException("Multiple elements: " + a + ", " + b);
                 })
@@ -53,6 +53,12 @@ public class VehicleServiceImpl implements VehicleService {
 
         //TODO throw error or no access
         return null;
+    }
+
+    @Override
+    public VehicleDto getVehicleById(long id) {
+        return modelMapper.map(vehicleRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("Vehicle id is invalid!")),VehicleDto.class);
     }
 
     @Override

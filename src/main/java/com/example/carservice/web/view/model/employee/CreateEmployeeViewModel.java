@@ -1,6 +1,7 @@
 package com.example.carservice.web.view.model.employee;
 
 
+import com.example.carservice.data.entity.CarService;
 import com.example.carservice.data.entity.Qualification;
 import com.example.carservice.data.entity.Role;
 import lombok.Getter;
@@ -22,12 +23,13 @@ public class CreateEmployeeViewModel {
     private String firstName;
     @NotBlank
     private String lastName;
-//    @NotBlank
+    @NotBlank
     private String username;
     @NotBlank
     private String password;
     private String matchingPassword;
 
-    private List<Role> authorities;
-    private List<Qualification> qualifications;
+    private CarService carService;
+    private Set<Role> authorities;
+    private Set<Qualification> qualifications;
 }

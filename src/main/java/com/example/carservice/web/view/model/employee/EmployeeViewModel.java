@@ -1,11 +1,13 @@
 package com.example.carservice.web.view.model.employee;
 
+import com.example.carservice.data.entity.CarService;
 import com.example.carservice.data.entity.Qualification;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,5 +17,6 @@ public class EmployeeViewModel {
     private String firstName;
     private String secondName;
     private String username;
-    private List<Qualification> qualifications;
+    private CarService carService;
+    private Set<Qualification> qualifications;
 }

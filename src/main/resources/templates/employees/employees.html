@@ -15,7 +15,7 @@
         <td th:text="${employee.firstName}"></td>
         <td th:text="${employee.secondName}"></td>
         <td><a class="btn btn-info" th:href="@{'/employees/edit/'+${employee.id}}">Edit</a></td>
-        <td><a class="btn btn-danger" th:href="@{'/employees/delete/'+${employee.id}}">Delete</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/employees/delete/'+${employee.id}}">Fire</a></td>
     </tr>
 </table>
 </body>

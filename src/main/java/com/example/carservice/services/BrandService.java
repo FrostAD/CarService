@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface BrandService{
     List<BrandDTO> getBrands();
-    void create(CreateBrandDTO brand);
+    Brand create(CreateBrandDTO brand);
     BrandDTO getBrand(@Min(1) long id);
     Brand updateBrand(long id, UpdateBrandDTO brandDTO);
     void deleteBrand(long id);

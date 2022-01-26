@@ -32,5 +32,6 @@ public class Vehicle extends BaseEntity {
     private Set<Reservation> reservations = new HashSet<>();
 
     //TODO ONE TO MANY Set<Repairs>
-
+    @OneToMany(mappedBy = "vehicle",fetch = FetchType.EAGER)
+    private Set<Repair> repairs = new HashSet<>();
 }

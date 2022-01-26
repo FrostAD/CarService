@@ -31,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
-    //TODO Make difference between role and authority (hasRoles/Authorities ...)
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -57,9 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth
 //                .inMemoryAuthentication()
-//                .withUser("user").password("user").authorities("EMPLOYEE")
-//                .and()
-//                .withUser("admin").password("user").authorities("EMPLOYEE","ADMIN");
+////                .withUser("user").password("user").authorities("EMPLOYEE")
+////                .and()
+//                .withUser("admin").password(new BCryptPasswordEncoder().encode("admin")).authorities("EMPLOYEE","ADMIN");
 //    }
 
 

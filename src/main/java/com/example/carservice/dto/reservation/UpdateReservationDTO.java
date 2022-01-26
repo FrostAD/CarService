@@ -5,6 +5,7 @@ import com.example.carservice.data.entity.Vehicle;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class UpdateReservationDTO {
     @NotNull
     private CarService carService;
@@ -22,4 +24,14 @@ public class UpdateReservationDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private boolean isComplete;
+
+    @Override
+    public String toString() {
+        return "UpdateReservationDTO{" +
+                "carService=" + carService.getId() +
+                ", vehicle=" + vehicle.getId() +
+                ", date=" + date +
+                ", isComplete=" + isComplete +
+                '}';
+    }
 }

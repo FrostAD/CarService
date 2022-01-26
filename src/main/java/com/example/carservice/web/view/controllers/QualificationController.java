@@ -10,17 +10,26 @@ import com.example.carservice.web.view.model.qualification.QualificationViewMode
 import com.example.carservice.web.view.model.qualification.UpdateQualificationViewModel;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("/qualifications")
+@PreAuthorize("hasAnyAuthority('ADMIN')")
 public class QualificationController {
     private final QualificationService qualificationService;
     private final ModelMapper modelMapper;
@@ -30,7 +39,33 @@ public class QualificationController {
         model.addAttribute("qualifications",qualificationService.getQualifications().stream()
                 .map(q -> modelMapper.map(q, QualificationViewModel.class))
                 .collect(Collectors.toList()));
+        model.addAttribute("sortDirection", "asc");
         return "/qualifications/qualifications";
+    }
+    @GetMapping("/sort-by-name/{sortDirection}")
+    public String getQualifications(Model model, @PathVariable String sortDirection){
+        model.addAttribute("qualifications",qualificationService.getQualificationsSortedByName(sortDirection).stream()
+                .map(q -> modelMapper.map(q, QualificationViewModel.class))
+                .collect(Collectors.toList()));
+        model.addAttribute("sortDirection", sortDirection.equals("asc") ? "desc" : "asc");
+        return "/qualifications/qualifications";
+    }
+    @GetMapping("/pagination/page/{page}/size/{size}")
+    public String getSchoolsPagination(Model model, @PathVariable int page, @PathVariable int size) {
+        Type pageType = new TypeToken<Page<QualificationViewModel>>() {
+        }.getType();
+        final Page<QualificationViewModel> pageOfQualifications =
+                modelMapper.map(qualificationService.getSchoolsPagination(PageRequest.of(page - 1, size)), pageType);
+
+        model.addAttribute("pageOfQualifications", pageOfQualifications);
+        int totalPages = pageOfQualifications.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+        return "/qualifications/qualifications-pagination";
     }
 
     @GetMapping("/create-qualification")

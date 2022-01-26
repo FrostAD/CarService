@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Min;
+import java.beans.ConstructorProperties;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,20 +25,21 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<BrandDTO> getBrands() {
+//        return brandRepository.findAll();
         return brandRepository.findAll().stream()
                 .map(b -> modelMapper.map(b,BrandDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void create(CreateBrandDTO brand) {
-        brandRepository.save(modelMapper.map(brand, Brand.class));
+    public Brand create(CreateBrandDTO brand) {
+        return brandRepository.save(modelMapper.map(brand, Brand.class));
     }
 
     @Override
     public BrandDTO getBrand(@Min(1) long id) {
         return modelMapper.map(brandRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("Brand id invalid")),BrandDTO.class);
+                () -> new NullPointerException("Brand id is invalid!")),BrandDTO.class);
     }
 
     @Override

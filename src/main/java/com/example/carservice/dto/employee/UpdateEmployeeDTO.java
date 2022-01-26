@@ -1,5 +1,6 @@
 package com.example.carservice.dto.employee;
 
+import com.example.carservice.data.entity.CarService;
 import com.example.carservice.data.entity.Qualification;
 import com.example.carservice.data.entity.Role;
 import com.example.carservice.dto.qualification.QualificationDTO;
@@ -9,7 +10,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,6 +29,8 @@ public class UpdateEmployeeDTO {
     private String password;
     private String matchingPassword;
 
-    private List<Role> authorities;
-    private List<Qualification> qualifications;
+    @NotNull
+    private CarService carService;
+    private Set<Role> authorities;
+    private Set<Qualification> qualifications;
 }
